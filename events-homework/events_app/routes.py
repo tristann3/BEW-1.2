@@ -26,15 +26,7 @@ def event_detail(event_id):
     """Show a single event."""
     event = Event.query.filter_by(id=event_id).one()
 
-    count = 0
-    for guest in event.guests:
-      count += 1
-
-    context = {
-      'event': event,
-      'count': count
-    }
-    return render_template('event_detail.html', **context)
+    return render_template('event_detail.html', event=event)
 
 
 @main.route('/event/<event_id>', methods=['POST'])
@@ -47,14 +39,16 @@ def rsvp(event_id):
     if is_returning_guest:
         returning_guest = Guest.query.filter_by(name=guest_name).one()
         returning_guest.events_attending.append(event)
-        db.session.add(returning_guest)
+        event.num_guests = event.num_guests + 1
+        db.session.add(returning_guest, event)
         db.session.commit()
     else:
         guest_email = request.form.get('email')
         guest_phone = request.form.get('phone')
         new_guest = Guest(name=guest_name, email=guest_email, phone=guest_phone)
         new_guest.events_attending.append(event)
-        db.session.add(new_guest)
+        event.num_guests = event.num_guests + 1
+        db.session.add(new_guest, event)
         db.session.commit()
     
     flash('You have successfully RSVP\'d! See you there!')
