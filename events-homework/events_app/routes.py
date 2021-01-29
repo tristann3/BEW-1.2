@@ -25,7 +25,16 @@ def index():
 def event_detail(event_id):
     """Show a single event."""
     event = Event.query.filter_by(id=event_id).one()
-    return render_template('event_detail.html', event=event)
+
+    count = 0
+    for guest in event.guests:
+      count += 1
+
+    context = {
+      'event': event,
+      'count': count
+    }
+    return render_template('event_detail.html', **context)
 
 
 @main.route('/event/<event_id>', methods=['POST'])
@@ -43,7 +52,7 @@ def rsvp(event_id):
     else:
         guest_email = request.form.get('email')
         guest_phone = request.form.get('phone')
-        new_guest = Guest(name=guest_name, email=guest_email, phone=guest_email)
+        new_guest = Guest(name=guest_name, email=guest_email, phone=guest_phone)
         new_guest.events_attending.append(event)
         db.session.add(new_guest)
         db.session.commit()
@@ -74,7 +83,7 @@ def create():
         db.session.commit()
 
         flash('Event created.')
-        return redirect(url_for('main.create'))
+        return redirect(url_for('main.index'))
     else:
         return render_template('create.html')
 
