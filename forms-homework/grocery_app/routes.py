@@ -21,14 +21,26 @@ def homepage():
 @main.route('/new_store', methods=['GET', 'POST'])
 def new_store():
     # TODO: Create a GroceryStoreForm
+    form = GroceryStoreForm()
 
     # TODO: If form was submitted and was valid:
     # - create a new GroceryStore object and save it to the database,
     # - flash a success message, and
     # - redirect the user to the store detail page.
+    if form.validate_on_submit():
+      new_store = GroceryStore(
+        title = form.title.data()
+        address = form.address.data()
+        items = form.items.data()
+      )
+      db.session.add(new_store)
+      db.session.commit()
+
+      flash("New store was created successfully"
+      return redirect(url_for('main.store_detail'), store_id=new_store.id) )
 
     # TODO: Send the form to the template and use it to render the form fields
-    return render_template('new_store.html')
+    return render_template('new_store.html', form=form)
 
 @main.route('/new_item', methods=['GET', 'POST'])
 def new_item():
