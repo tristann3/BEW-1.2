@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from events_app.config import Config
+from grocery_app.config import Config
 import os
 
 app = Flask(__name__)
@@ -9,7 +9,7 @@ app.secret_key = os.urandom(24)
 
 db = SQLAlchemy(app)
 
-from events_app.routes import main
+from grocery_app.routes import main
 
 app.register_blueprint(main)
 
