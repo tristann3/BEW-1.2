@@ -47,20 +47,25 @@ def new_store():
 def new_item():
     # TODO: Create a GroceryItemForm
     form = GroceryItemForm()
+    print("reached route")
+    print(form)
 
     # TODO: If form was submitted and was valid:
     # - create a new GroceryItem object and save it to the database,
     # - flash a success message, and
     # - redirect the user to the item detail page.
     if form.validate_on_submit():
+      print("validated item")
       new_item = GroceryItem(
         name = form.name.data,
         price = form.price.data,
         category = form.category.data,
-        photo_url = form.photo_url.data
+        photo_url = form.photo_url.data,
+        store = form.store.data
       )
       db.session.add(new_item)
       db.session.commit()
+      print("commited to db")
 
       flash("New item was created successfully")
       return redirect(url_for('main.item_detail', item_id=new_item.id))
