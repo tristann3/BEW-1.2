@@ -52,11 +52,11 @@ class Author(db.Model):
     biography = db.Column(db.String(200))
     books = db.relationship('Book', back_populates='author')
 
-    def __str__(self):
-        return f'<Author: {self.name}>'
+    # def __str__(self):
+    #     return f'<Author: {self.name}>'
 
-    def __repr__(self):
-        return f'<Author: {self.name}>'
+    # def __repr__(self):
+    #     return f'<Author: {self.name}>'
 
 class Genre(db.Model):
     """Genre model."""
