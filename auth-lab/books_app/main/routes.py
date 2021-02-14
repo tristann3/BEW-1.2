@@ -105,19 +105,14 @@ def book_detail(book_id):
 @main.route('/profile/<username>')
 def profile(username):
     user = User.query.filter_by(username=username).one()
-
-    # STRETCH CHALLENGE: Add ability to modify a user's username or favorite 
-    # books
     return render_template('profile.html', user=user)
 
 @main.route('/favorite/<book_id>', methods=['POST'])
 @login_required
 def favorite_book(book_id):
     book = Book.query.get(book_id)
-    # TODO: If the book is not already in user's favorites, then add it,
-    # commit the change to the database, and flash a success message.
     user = current_user
-    print(user.favorite_books)
+
     if book not in user.favorite_books:
       user.favorite_books.append(book)
 
