@@ -24,6 +24,7 @@ def homepage():
 
 
 @main.route('/create_book', methods=['GET', 'POST'])
+@login_required
 def create_book():
     form = BookForm()
 
@@ -45,6 +46,7 @@ def create_book():
 
 
 @main.route('/create_author', methods=['GET', 'POST'])
+@login_required
 def create_author():
     # TODO: Make an AuthorForm instance
 
@@ -58,6 +60,7 @@ def create_author():
 
 
 @main.route('/create_genre', methods=['GET', 'POST'])
+@login_required
 def create_genre():
     # TODO: Make a GenreForm instance
 
@@ -91,9 +94,8 @@ def profile(username):
     # books
     return render_template('profile.html', username=username)
 
-
-# TODO: Add `@login_required`
 @main.route('/favorite/<book_id>', methods=['POST'])
+@login_required
 def favorite_book(book_id):
     book = Book.query.get(book_id)
     # TODO: If the book is not already in user's favorites, then add it,
@@ -102,10 +104,10 @@ def favorite_book(book_id):
     # Then, redirect the user to the book detail page for the given book.
     return "Not yet implemented!"
 
-
-# TODO: Add `@login_required`
 @main.route('/unfavorite/<book_id>', methods=['POST'])
+@login_required
 def unfavorite_book(book_id):
+  
     # TODO: If the book is in user's favorites, then remove it,
     # commit the change to the database, and flash a success message.
 
