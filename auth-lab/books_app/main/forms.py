@@ -33,6 +33,9 @@ class AuthorForm(FlaskForm):
 class GenreForm(FlaskForm):
     """Form to create a genre."""
 
+    name = StringField('Genre Name', validators=[DataRequired(), Length(min=3, max=80)])
+    submit = SubmitField('Submit')
+
     # TODO: Fill out the fields in this class for:
     # - the genre's name (e.g. fiction, non-fiction, etc)
     # - a submit button
