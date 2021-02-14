@@ -6,31 +6,15 @@ from grocery_app.models import ItemCategory, GroceryStore, GroceryItem
 
 class GroceryStoreForm(FlaskForm):
     """Form for adding/updating a GroceryStore."""
-
-    # TODO: Add the following fields to the form class:
-    # - title - StringField
-    # - address - StringField
-    # - submit button
     title = StringField('Title', validators=[DataRequired(), Length(min=3, max=80)])
     address = StringField('Address', validators=[DataRequired(), Length(min=3, max=150)])    
     submit = SubmitField('Submit')
 
-    pass
-
 class GroceryItemForm(FlaskForm):
     """Form for adding/updating a GroceryItem."""
-
-    # TODO: Add the following fields to the form class:
-    # - name - StringField
-    # - price - FloatField
-    # - category - SelectField (specify the 'choices' param)
-    # - photo_url - StringField (use a URL validator)
-    # - store - QuerySelectField (specify the `query_factory` param)
-    # - submit button
     name = StringField('Name', validators=[DataRequired(), Length(min=3, max=80)])
     price = FloatField('Price', validators=[DataRequired()])
     category = SelectField('Category', choices=ItemCategory.choices())
     photo_url = StringField('Photo', validators=[DataRequired(), Length(min=3, max=80)])
     store = QuerySelectField('Store', query_factory=lambda: GroceryStore.query)    
     submit = SubmitField('Submit')
-    pass
