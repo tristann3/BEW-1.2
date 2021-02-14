@@ -84,23 +84,20 @@ def create_genre():
 def book_detail(book_id):
     book = Book.query.get(book_id)
     form = BookForm(obj=book)
+    print(form.author.data)
 
     if form.validate_on_submit(): 
-        new_book = Book(
-            title=form.title.data,
-            publish_date=form.publish_date.data,
-            author=form.author.data,
-            audience=form.audience.data,
-            genres=form.genres.data
-        )
+        book.title = form.title.data
+        book.publish_date = form.publish_date.data
+        book.author = form.author.data
+        book.audience = form.audience.data
+        book.genres = form.genres.data
+
+        db.session.add(book)
         db.session.commit()
 
         flash('New book was updated successfully.')
-        return redirect(url_for('main.book_detail', book_id=new_book.id))
-
-    # TODO: If the form was submitted and is valid, update the fields in the 
-    # Book object and save to the database, then flash a success message to the 
-    # user and redirect to the book detail page
+        return redirect(url_for('main.book_detail', book_id=book.id))
 
     return render_template('book_detail.html', book=book, form=form)
 
