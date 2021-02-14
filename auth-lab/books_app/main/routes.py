@@ -85,6 +85,19 @@ def book_detail(book_id):
     book = Book.query.get(book_id)
     form = BookForm(obj=book)
 
+    if form.validate_on_submit(): 
+        new_book = Book(
+            title=form.title.data,
+            publish_date=form.publish_date.data,
+            author=form.author.data,
+            audience=form.audience.data,
+            genres=form.genres.data
+        )
+        db.session.commit()
+
+        flash('New book was updated successfully.')
+        return redirect(url_for('main.book_detail', book_id=new_book.id))
+
     # TODO: If the form was submitted and is valid, update the fields in the 
     # Book object and save to the database, then flash a success message to the 
     # user and redirect to the book detail page
