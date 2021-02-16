@@ -12,6 +12,13 @@
 
 <p><strong>Store:</strong> {{ item.store.title }}</p>
 
+<form
+  method="POST"
+  action="{{ url_for('main.add_to_shopping_list', item_id=item.id) }}"
+>
+  <button type="submit">Add To Cart</button>
+</form>
+
 <h2>Edit Item</h2>
 
 <form
@@ -22,10 +29,22 @@
   <fieldset>
     <legend>Please enter your information:</legend>
 
-    {{ item.name.label }} {{ form.name }} {{ form.price.label }} {{ form.price
-    }} {{ form.category.label }} {{ form.category }} {{ form.photo_url.label }}
-    {{ form.photo_url }} {{ form.store.label }} {{ form.store }} {{ form.submit
-    }}
+    {{ item.name.label }} 
+    {{ form.name }} 
+    
+    {{ form.price.label }} 
+    {{ form.price}} 
+    
+    {{ form.category.label }} 
+    {{ form.category }} 
+    
+    {{ form.photo_url.label }}
+    {{ form.photo_url }} 
+    
+    {{ form.store.label }} 
+    {{ form.store }} 
+    
+    {{ form.submit}}
   </fieldset>
 </form>
 
