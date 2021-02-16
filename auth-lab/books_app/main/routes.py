@@ -17,6 +17,7 @@ main = Blueprint("main", __name__)
 
 @main.route('/')
 def homepage():
+  '''Homepage route'''
     all_books = Book.query.all()
     all_users = User.query.all()
     return render_template('home.html', 
@@ -26,6 +27,7 @@ def homepage():
 @main.route('/create_book', methods=['GET', 'POST'])
 @login_required
 def create_book():
+  '''Route to create a Book'''
     form = BookForm()
 
     # if form was submitted and contained no errors
@@ -48,6 +50,7 @@ def create_book():
 @main.route('/create_author', methods=['GET', 'POST'])
 @login_required
 def create_author():
+  '''Route to create an Author'''
     form = AuthorForm()
 
     if form.validate_on_submit():
@@ -66,6 +69,7 @@ def create_author():
 @main.route('/create_genre', methods=['GET', 'POST'])
 @login_required
 def create_genre():
+  '''Route to create a Genre'''
     form = GenreForm()
 
     if form.validate_on_submit():
@@ -82,6 +86,7 @@ def create_genre():
 
 @main.route('/book/<book_id>', methods=['GET', 'POST'])
 def book_detail(book_id):
+  '''Route to deliver book information'''
     book = Book.query.get(book_id)
     form = BookForm(obj=book)
     print(form.author.data)
@@ -104,28 +109,28 @@ def book_detail(book_id):
 
 @main.route('/profile/<username>')
 def profile(username):
+  '''Route to display the current user's profile'''
     user = User.query.filter_by(username=username).one()
     return render_template('profile.html', user=user)
 
 @main.route('/favorite/<book_id>', methods=['POST'])
 @login_required
 def favorite_book(book_id):
+    '''Route that adds a book to the logged in user's favorite book list'''
     book = Book.query.get(book_id)
     user = current_user
 
     if book not in user.favorite_books:
       user.favorite_books.append(book)
-
       db.session.add(user)
       db.session.commit()
-
       flash('New book was added to your favorites list successfully.')
-      
     return redirect(url_for('main.book_detail', book_id=book.id))
 
 @main.route('/unfavorite/<book_id>', methods=['POST'])
 @login_required
 def unfavorite_book(book_id):
+    '''Route that removes a book to the logged in user's favorite book list'''
     book = Book.query.get(book_id)
 
     user = current_user

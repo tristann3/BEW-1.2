@@ -19,24 +19,14 @@ class BookForm(FlaskForm):
 
 class AuthorForm(FlaskForm):
     """Form to create an author."""
-
     name = StringField('Author Name', validators=[DataRequired(), Length(min=3, max=80)])
     biography = TextAreaField('Biography', validators=[DataRequired(), Length(min=3, max=80)])
     submit = SubmitField('Submit')
-
-    # STRETCH CHALLENGE: Add more fields here as well as in `models.py` to
-    # collect more information about the author, such as their birth date,
-    # country, etc.
     pass
 
 
 class GenreForm(FlaskForm):
     """Form to create a genre."""
-
     name = StringField('Genre Name', validators=[DataRequired(), Length(min=3, max=80)])
     submit = SubmitField('Submit')
-
-    # TODO: Fill out the fields in this class for:
-    # - the genre's name (e.g. fiction, non-fiction, etc)
-    # - a submit button
     pass

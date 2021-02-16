@@ -16,6 +16,7 @@ class FormEnum(enum.Enum):
 
 
 class Audience(FormEnum):
+  '''Enum for Audience choices'''
     CHILDREN = 'Children'
     YOUNG_ADULT = 'Young Adult'
     ADULT = 'Adult'
@@ -23,7 +24,7 @@ class Audience(FormEnum):
 
 
 class Book(db.Model):
-    """Book model."""
+    ''' Book Model '''
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), nullable=False)
     publish_date = db.Column(db.Date)
@@ -51,7 +52,7 @@ class Book(db.Model):
 
 
 class Author(db.Model):
-    """Author model."""
+    ''' Author Model '''
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     biography = db.Column(db.String(200))
@@ -65,7 +66,7 @@ class Author(db.Model):
 
 
 class Genre(db.Model):
-    """Genre model."""
+    ''' Genre Model '''
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False, unique=True)
     books = db.relationship(
@@ -85,6 +86,7 @@ book_genre_table = db.Table('book_genre',
 
 
 class User(UserMixin, db.Model):
+    ''' User Model '''
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), nullable=False, unique=True)
     password = db.Column(db.String(200), nullable=False)

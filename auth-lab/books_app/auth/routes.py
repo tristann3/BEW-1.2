@@ -12,6 +12,7 @@ auth = Blueprint("auth", __name__)
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup():
+  '''Route to let a user make an account'''
     form = SignUpForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -28,6 +29,7 @@ def signup():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+  '''Route to let a user login'''
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -39,5 +41,6 @@ def login():
 
 @auth.route('/logout')
 def logout():
+  '''Route to let a user logout'''
     logout_user()
     return redirect(url_for('main.homepage'))
