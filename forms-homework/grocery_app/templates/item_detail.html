@@ -1,9 +1,10 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <h1>Item - {{ item.name }}</h1>
 
-<p><img src="{{ item.photo_url }}" width="250px" height="250px"></p>
+<p><strong>Created By:</strong> {{ item.created_by }}</p>
+
+<p><img src="{{ item.photo_url }}" width="250px" height="250px" /></p>
 
 <p><strong>Price:</strong> {{ item.price }}</p>
 
@@ -11,32 +12,21 @@
 
 <p><strong>Store:</strong> {{ item.store.title }}</p>
 
-
 <h2>Edit Item</h2>
 
-<form method="POST" action="{{ url_for('main.item_detail', item_id = item.id) }}">
+<form
+  method="POST"
+  action="{{ url_for('main.item_detail', item_id = item.id) }}"
+>
   {{ form.csrf_token }}
-    <fieldset>
-        <legend>Please enter your information:</legend>
+  <fieldset>
+    <legend>Please enter your information:</legend>
 
-        {{ item.name.label }}
-        {{ form.name }}
-
-        {{ form.price.label }}
-        {{ form.price }}
-
-        {{ form.category.label }}
-        {{ form.category }}
-
-        {{ form.photo_url.label }}
-        {{ form.photo_url }}
-
-        {{ form.store.label }}
-        {{ form.store }}
-
-        {{ form.submit }}
-            
-    </fieldset>
+    {{ item.name.label }} {{ form.name }} {{ form.price.label }} {{ form.price
+    }} {{ form.category.label }} {{ form.category }} {{ form.photo_url.label }}
+    {{ form.photo_url }} {{ form.store.label }} {{ form.store }} {{ form.submit
+    }}
+  </fieldset>
 </form>
 
 {% endblock %}
