@@ -17,7 +17,7 @@ main = Blueprint("main", __name__)
 
 @main.route('/')
 def homepage():
-  '''Homepage route'''
+    '''Homepage route'''
     all_books = Book.query.all()
     all_users = User.query.all()
     return render_template('home.html', 
@@ -27,7 +27,7 @@ def homepage():
 @main.route('/create_book', methods=['GET', 'POST'])
 @login_required
 def create_book():
-  '''Route to create a Book'''
+    '''Route to create a Book'''
     form = BookForm()
 
     # if form was submitted and contained no errors
@@ -50,7 +50,7 @@ def create_book():
 @main.route('/create_author', methods=['GET', 'POST'])
 @login_required
 def create_author():
-  '''Route to create an Author'''
+    '''Route to create an Author'''
     form = AuthorForm()
 
     if form.validate_on_submit():
@@ -69,7 +69,7 @@ def create_author():
 @main.route('/create_genre', methods=['GET', 'POST'])
 @login_required
 def create_genre():
-  '''Route to create a Genre'''
+    '''Route to create a Genre'''
     form = GenreForm()
 
     if form.validate_on_submit():
@@ -86,7 +86,7 @@ def create_genre():
 
 @main.route('/book/<book_id>', methods=['GET', 'POST'])
 def book_detail(book_id):
-  '''Route to deliver book information'''
+    '''Route to deliver book information'''
     book = Book.query.get(book_id)
     form = BookForm(obj=book)
     print(form.author.data)
@@ -109,7 +109,7 @@ def book_detail(book_id):
 
 @main.route('/profile/<username>')
 def profile(username):
-  '''Route to display the current user's profile'''
+    '''Route to display the current user's profile'''
     user = User.query.filter_by(username=username).one()
     return render_template('profile.html', user=user)
 
