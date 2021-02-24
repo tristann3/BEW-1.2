@@ -232,7 +232,6 @@ class MainTests(unittest.TestCase):
         pass
 
     def test_profile_page(self):
-        # TODO: Make a GET request to the /profile/1 route
         create_user()
         response = app.test_client().get('/profile/me1', follow_redirects=True)
         response_text = response.get_data(as_text=True)
@@ -249,32 +248,26 @@ class MainTests(unittest.TestCase):
     def test_favorite_book(self):
         create_user()
         create_books()
-        # TODO: Login as the user me1
-        app.test_client().post('/login', data=dict(
-          username="me1",
-          password="password"
-        ))
+        login(self.app, "me1", "password")
 
-        # TODO: Make a POST request to the /favorite/1 route
-        app.test_client().post('/favorite/1')
+        self.app.post('/favorite/1')
 
-        # TODO: Verify that the book with id 1 was added to the user's favorites
-        book = Book.query.filter_by(title="To Kill a Mockingbird").one()
-        print(book.id)
         user = User.query.filter_by(username="me1").one()
 
         response = app.test_client().get('/profile/me1', follow_redirects=True)
 
-        print(user.favorite_books)
-
-        # self.assertEqual(user.favorite_books[0].id, "1")
+        self.assertEqual(user.favorite_books[0].id, 1)
         pass
 
     def test_unfavorite_book(self):
-        # TODO: Login as the user me1, and add book with id 1 to me1's favorites
+        create_user()
+        create_books()
+        login(self.app, "me1", "password")
 
-        # TODO: Make a POST request to the /unfavorite/1 route
+        self.app.post('/favorite/1')
 
-        # TODO: Verify that the book with id 1 was removed from the user's 
-        # favorites
+        self.app.post('/unfavorite/1')
+        user = User.query.filter_by(username="me1").one()
+
+        self.assertEqual(user.favorite_books, [])
         pass
