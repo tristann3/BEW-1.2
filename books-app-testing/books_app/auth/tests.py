@@ -99,6 +99,15 @@ class AuthTests(TestCase):
         # - Make a POST request to /login, sending a username & password
         # - Check that the login form is displayed again, with an appropriate
         #   error message
+        form_data = {
+          'username': 'nopewrong',
+          'password': 'totallyincorrect'
+        }
+        response = app.test_client().post('/login', data=form_data)
+        response_text = response.get_data(as_text=True)
+
+        self.assertIn('Log In', response_text)
+        self.assertIn('No user with that username. Please try again.', response_text)
         pass
 
     def test_login_incorrect_password(self):
@@ -108,6 +117,16 @@ class AuthTests(TestCase):
         #   an incorrect password
         # - Check that the login form is displayed again, with an appropriate
         #   error message
+        create_user()
+
+        form_data = {
+          'username': 'me1',
+          'password': 'totallyincorrect'
+        }
+        response = app.test_client().post('/login', data=form_data)
+        response_text = response.get_data(as_text=True)
+
+        self.assertIn('Password doesn&#39;t match. Please try again.', response_text)
         pass
 
     def test_logout(self):
@@ -116,6 +135,14 @@ class AuthTests(TestCase):
         # - Log the user in (make a POST request to /login)
         # - Make a GET request to /logout
         # - Check that the "login" button appears on the homepage
-        pass
-    def tearDown(self):
-        pass
+        create_user()
+
+        form_data = {
+          'username': 'me1',
+          'password': 'password'
+        }
+        app.test_client().post('/login', data=form_data)
+        response = app.test_client().get('/logout', follow_redirects=True)
+        response_text = response.get_data(as_text=True)
+
+        self.assertIn('Log In', response_text)
