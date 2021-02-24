@@ -63,7 +63,6 @@ class AuthTests(TestCase):
 
         self.assertIsNotNone(user)
         self.assertEqual(result.status_code, 302)
-        pass
 
     def test_signup_existing_user(self):
         ''' Test that a user cannot sign in with a duplicate username '''
@@ -92,13 +91,9 @@ class AuthTests(TestCase):
 
         self.assertNotIn('Log In', response_text)
         self.assertEqual(response.status_code, 302)
-        pass
 
     def test_login_nonexistent_user(self):
-        # TODO: Write a test for the login route. It should:
-        # - Make a POST request to /login, sending a username & password
-        # - Check that the login form is displayed again, with an appropriate
-        #   error message
+        ''' Test that a user cannot login if they havent made an account '''
         form_data = {
           'username': 'nopewrong',
           'password': 'totallyincorrect'
@@ -108,15 +103,9 @@ class AuthTests(TestCase):
 
         self.assertIn('Log In', response_text)
         self.assertIn('No user with that username. Please try again.', response_text)
-        pass
 
     def test_login_incorrect_password(self):
-        # TODO: Write a test for the login route. It should:
-        # - Create a user
-        # - Make a POST request to /login, sending the created username &
-        #   an incorrect password
-        # - Check that the login form is displayed again, with an appropriate
-        #   error message
+        ''' Test that a User gets an error message when they enter an incorrect password '''
         create_user()
 
         form_data = {
@@ -127,14 +116,9 @@ class AuthTests(TestCase):
         response_text = response.get_data(as_text=True)
 
         self.assertIn('Password doesn&#39;t match. Please try again.', response_text)
-        pass
 
     def test_logout(self):
-        # TODO: Write a test for the logout route. It should:
-        # - Create a user
-        # - Log the user in (make a POST request to /login)
-        # - Make a GET request to /logout
-        # - Check that the "login" button appears on the homepage
+        ''' Test a User can loggout '''
         create_user()
 
         form_data = {

@@ -124,30 +124,22 @@ class MainTests(unittest.TestCase):
 
         self.assertNotIn('Favorite', response_text)
 
-        pass
 
     def test_book_detail_logged_in(self):
         """Test that the book appears on its detail page."""
-        # TODO: Use helper functions to create books, authors, user, & to log in
         create_books()
         create_user()
         login(self.app, "me1", "password")
 
-        # TODO: Make a GET request to the URL /book/1, check to see that the
-        # status code is 200
         response = self.app.get('/book/1', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
 
-        # TODO: Check that the response contains the book's title, publish date,
-        # and author's name
         response_text = response.get_data(as_text=True)
         self.assertIn('To Kill a Mockingbird', response_text)
         self.assertIn('1960-07-11', response_text)
         self.assertIn('Harper Lee', response_text)
 
-        # TODO: Check that the response contains the 'Favorite' button
         self.assertIn('Favorite', response_text)
-        pass
 
     def test_update_book(self):
         """Test updating a book."""
@@ -212,7 +204,6 @@ class MainTests(unittest.TestCase):
 
     def test_create_author(self):
         """Test creating an author."""
-        # TODO: Make a POST request to the /create_author route
         response = app.test_client().post('/create_author', data=dict(
           name = "Tristan Thompson",
           biography = "A dope BEW Concentrate"
@@ -220,18 +211,18 @@ class MainTests(unittest.TestCase):
         author = Author.query.filter_by(name="Tristan Thompson")
 
         self.assertIsNotNone(author)
-        pass
 
     def test_create_genre(self):
+      ''' Test creating Genre '''
         response = app.test_client().post('/create_genre', data=dict(
           name = "JohnRuh",
         ))
         genre = Genre.query.filter_by(name="JohnRuh")
 
         self.assertIsNotNone(genre)
-        pass
 
     def test_profile_page(self):
+      ''' Test a User profile page '''
         create_user()
         response = app.test_client().get('/profile/me1', follow_redirects=True)
         response_text = response.get_data(as_text=True)
@@ -243,9 +234,8 @@ class MainTests(unittest.TestCase):
         self.assertIn('Welcome to me1\'s profile.', response_text)
         self.assertIn('me1\'s favorite books are:', response_text)
 
-        pass
-
     def test_favorite_book(self):
+      ''' Test a User can favorite a book '''
         create_user()
         create_books()
         login(self.app, "me1", "password")
@@ -257,9 +247,9 @@ class MainTests(unittest.TestCase):
         response = app.test_client().get('/profile/me1', follow_redirects=True)
 
         self.assertEqual(user.favorite_books[0].id, 1)
-        pass
 
     def test_unfavorite_book(self):
+      ''' Test a User can favorite a book '''
         create_user()
         create_books()
         login(self.app, "me1", "password")
@@ -270,4 +260,3 @@ class MainTests(unittest.TestCase):
         user = User.query.filter_by(username="me1").one()
 
         self.assertEqual(user.favorite_books, [])
-        pass
