@@ -2,17 +2,29 @@
 
 {% block content %}
 
-<h2>Students</h2>
 
-<p>
-    <a href="/create_student">+ New Student</a>
-</p>
 
-<ul>
-    {% for student in all_students %}
-        <li><a href="/student/{{ student.id }}">{{ student.first_name }} {{ student.last_name}}</a></li>
-    {% endfor %}
-</ul>
+<div id="students-professors-list">
+  <div>
+    <h2>Students</h2>
+    <p><a href="/create_student">+ New Student</a></p>
+    <ul>
+      {% for student in all_students %}
+          <li><a href="/student/{{ student.id }}">{{ student.first_name }} {{ student.last_name}}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div>
+    <h2>Professors</h2>
+    <p><a href="/create_professor">+ New Professor</a></p>
+    <ul>
+      {% for professor in all_professors %}
+          <li><a href="/professor/{{ professor.id }}">{{ professor.first_name }} {{ professor.last_name}}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
 
 
 

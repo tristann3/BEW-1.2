@@ -12,6 +12,12 @@ body {
   padding: 20px;
 }
 
+#students-professors-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 nav {
   width: 100%;
   display: flex;
