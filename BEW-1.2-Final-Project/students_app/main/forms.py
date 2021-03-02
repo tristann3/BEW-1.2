@@ -15,3 +15,8 @@ class ProfessorForm(FlaskForm):
     first_name = StringField('First Name', validators=[DataRequired(), Length(min=3, max=80)])
     last_name = StringField('Last Name', validators=[DataRequired(), Length(min=3, max=80)])
     submit = SubmitField('Submit')
+
+class ClassForm(FlaskForm):
+    """Form to create a professor."""
+    title = StringField('Class Title', validators=[DataRequired(), Length(min=3, max=80)])
+    submit = SubmitField('Submit')

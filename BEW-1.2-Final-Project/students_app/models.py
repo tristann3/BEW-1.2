@@ -18,7 +18,7 @@ class Student(db.Model):
     last_name = db.Column(db.String(80), nullable=False)
   
     def __repr__(self):
-        return f'<Student: {self.username}>'
+        return f'<Student: {self.first_name} {self.last_name}>'
 
 class Professor(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -26,5 +26,14 @@ class Professor(db.Model):
     last_name = db.Column(db.String(80), nullable=False)
   
     def __repr__(self):
-        return f'<Professor: {self.username}>'
+        return f'<Professor: {self.first_name} {self.last_name}>'
+
+class Class(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(80), nullable=False)
+  
+    def __repr__(self):
+        return f'<Class: {self.title}>'
+
+
 

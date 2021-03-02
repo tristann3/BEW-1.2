@@ -1,8 +1,8 @@
 from flask import Blueprint, request, render_template, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
 from datetime import date, datetime
-from students_app.models import  User, Student, Professor
-from students_app.main.forms import StudentForm, ProfessorForm
+from students_app.models import  User, Student, Professor, Class
+from students_app.main.forms import StudentForm, ProfessorForm, ClassForm
 from students_app import bcrypt
 
 # Import app and db
@@ -95,3 +95,37 @@ def professor_detail(professor_id):
         return redirect(url_for('main.professor_detail', professor_id=professor_id))
 
     return render_template('professor_detail.html', professor=professor, form=form)
+
+@main.route('/create_class', methods=['GET', 'POST'])
+@login_required
+def create_class():
+    form = ClassForm()
+
+    # if form was submitted and contained no errors
+    if form.validate_on_submit(): 
+        new_class = Class(
+            title=form.title.data,
+        )
+        db.session.add(new_class)
+        db.session.commit()
+
+        flash('New class was created successfully.')
+        return redirect(url_for('main.class_detail', class_id=new_class.id))
+    return render_template('create_class.html', form=form)
+
+@main.route('/class/<class_id>', methods=['GET', 'POST'])
+@login_required
+def class_detail(class_id):
+    class_object = Class.query.get(class_id)
+    form = ClassForm(obj=class_object)
+
+    # if form was submitted and contained no errors
+    if form.validate_on_submit(): 
+        class_object.title = form.title.data
+
+        db.session.commit()
+
+        flash('New class was updated successfully.')
+        return redirect(url_for('main.class_detail', class_id=class_id))
+
+    return render_template('class_detail.html', class_object=class_object, form=form)

@@ -1,0 +1,18 @@
+{% extends 'base.html' %} {% block content %}
+
+<h1>{{ class_object.title }}</h1>
+
+
+<form method="POST" action="{{ url_for('main.class_detail', class_id=class_object.id) }}">
+  {{ form.csrf_token }}
+  <fieldset>
+    <legend>Edit {{ form.title.data }} Info</legend>
+
+    {{ form.title.label }}
+    {{ form.title }}
+
+    {{ form.submit }}
+  </fieldset>
+</form>
+
+{% endblock %}
