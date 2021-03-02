@@ -2,25 +2,17 @@
 
 {% block content %}
 
-<h2>Bleh</h2>
-
-<!-- <ul>
-{% for book in all_books %}
-    <li><a href="/book/{{ book.id }}">{{ book.title }}</a> by {{ book.author.name }}</li>
-{% endfor %}
-</ul> -->
-
-<h2>Users</h2>
+<h2>Students</h2>
 
 <p>
-    <a href="/create_user">+ New User</a>
+    <a href="/create_student">+ New Student</a>
 </p>
 
-<!-- <ul>
-    {% for user in all_users %}
-        <li><a href="/profile/{{ user.username }}">{{ user.username }}</a></li>
+<ul>
+    {% for student in all_students %}
+        <li><a href="/student/{{ student.id }}">{{ student.first_name }} {{ student.last_name}}</a></li>
     {% endfor %}
-</ul> -->
+</ul>
 
 
 
