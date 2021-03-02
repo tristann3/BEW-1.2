@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, DateField, SelectField, SubmitField, TextAreaField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField, QuerySelectMultipleField
 from wtforms.validators import DataRequired, Length, ValidationError
-from students_app.models import Student
+from students_app.models import Student, Professor
 
 class StudentForm(FlaskForm):
     """Form to create a student."""
@@ -19,4 +19,5 @@ class ProfessorForm(FlaskForm):
 class ClassForm(FlaskForm):
     """Form to create a professor."""
     title = StringField('Class Title', validators=[DataRequired(), Length(min=3, max=80)])
+    professor = QuerySelectField('Professor', query_factory=lambda: Professor.query, allow_blank=False)
     submit = SubmitField('Submit')

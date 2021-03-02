@@ -24,13 +24,16 @@ class Professor(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(80), nullable=False)
     last_name = db.Column(db.String(80), nullable=False)
+    classes = db.relationship('Class', back_populates='professor')
   
     def __repr__(self):
-        return f'<Professor: {self.first_name} {self.last_name}>'
+        return f'{self.first_name} {self.last_name}'
 
 class Class(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(80), nullable=False)
+    professor_id = db.Column(db.Integer, db.ForeignKey('professor.id'), nullable=False)
+    professor = db.relationship('Professor', back_populates='classes')
   
     def __repr__(self):
         return f'<Class: {self.title}>'

@@ -14,6 +14,14 @@
             <li class="error">{{ error }}</li>
         {% endfor %}
         </ul>
+
+        {{ form.professor.label }}
+        {{ form.professor }}
+        <ul>
+        {% for error in form.professor.errors %}
+            <li class="error">{{ error }}</li>
+        {% endfor %}
+        </ul>
         
         {{ form.submit }}
     </fieldset>

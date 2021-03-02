@@ -83,6 +83,7 @@ def create_professor():
 def professor_detail(professor_id):
     professor = Professor.query.get(professor_id)
     form = ProfessorForm(obj=professor)
+    print(professor.classes)
 
     # if form was submitted and contained no errors
     if form.validate_on_submit(): 
@@ -105,6 +106,7 @@ def create_class():
     if form.validate_on_submit(): 
         new_class = Class(
             title=form.title.data,
+            professor=form.professor.data
         )
         db.session.add(new_class)
         db.session.commit()
@@ -122,6 +124,7 @@ def class_detail(class_id):
     # if form was submitted and contained no errors
     if form.validate_on_submit(): 
         class_object.title = form.title.data
+        class_object.professor = form.professor.data
 
         db.session.commit()
 

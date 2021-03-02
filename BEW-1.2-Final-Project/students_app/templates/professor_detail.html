@@ -2,6 +2,14 @@
 
 <h1>{{ professor.first_name }} {{ professor.last_name }}</h1>
 
+<h3>Classes</h3>
+<ul>
+  {% for class in professor.classes %}
+  <li><a href="/class/{{ class.id }}">{{ class.title }}</a></li>
+  {% endfor %}
+</ul>
+
+
 
 <form method="POST" action="{{ url_for('main.professor_detail', professor_id=professor.id) }}">
   {{ form.csrf_token }}

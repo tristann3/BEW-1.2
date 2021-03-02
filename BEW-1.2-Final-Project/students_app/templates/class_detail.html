@@ -1,6 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>{{ class_object.title }}</h1>
+<h1>{{ class_object.title }} by <a href="/professor/{{ class_object.professor.id }}">{{ class_object.professor.first_name }} {{ class_object.professor.last_name}}</a></h1>
+
 
 
 <form method="POST" action="{{ url_for('main.class_detail', class_id=class_object.id) }}">
@@ -10,6 +11,9 @@
 
     {{ form.title.label }}
     {{ form.title }}
+
+    {{ form.professor.label }}
+    {{ form.professor }}
 
     {{ form.submit }}
   </fieldset>
