@@ -109,7 +109,7 @@ class MainTests(unittest.TestCase):
         self.assertNotIn('Sign Up', response_text)
 
     def test_student_detail_logged_in(self):
-        """Test that the book appears on its detail page."""
+        """Test that the class appears on student detail page."""
         create_classes()
         create_user()
         login(self.app, 'me1', 'password')
@@ -126,7 +126,7 @@ class MainTests(unittest.TestCase):
 
 
     def test_class_detail_logged_in(self):
-        """Test that the book appears on its detail page."""
+        """Test that the class details appears on its detail page."""
         create_classes()
         create_user()
         login(self.app, "me1", "password")
@@ -139,7 +139,7 @@ class MainTests(unittest.TestCase):
         self.assertIn('Joi Anderson', response_text)
 
     def test_professor_detail_logged_in(self):
-        """Test that the book appears on its detail page."""
+        """Test that the professor details appears on its detail page."""
         create_classes()
         create_user()
         login(self.app, "me1", "password")

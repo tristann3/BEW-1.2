@@ -12,11 +12,7 @@ main = Blueprint('main', __name__)
 # Create your routes here.
 @main.route('/')
 def homepage():
-    # meta = db.metadata
-    # for table in reversed(meta.sorted_tables):
-    #     print ('Clear table %s' % table)
-    #     db.session.execute(table.delete())
-    # db.session.commit()
+    ''' Delivers homepage '''
     all_classes = Class.query.all()
     all_students = Student.query.all()
     all_professors = Professor.query.all()
@@ -27,6 +23,7 @@ def homepage():
 @main.route('/create_student', methods=['GET', 'POST'])
 @login_required
 def create_student():
+    ''' Route to create a Student '''
     form = StudentForm()
 
     # if form was submitted and contained no errors
@@ -46,6 +43,7 @@ def create_student():
 @main.route('/student/<student_id>', methods=['GET', 'POST'])
 @login_required
 def student_detail(student_id):
+    ''' Route to show Student details '''
     student = Student.query.get(student_id)
     form = StudentForm(obj=student)
     print(student.classes)
@@ -66,6 +64,7 @@ def student_detail(student_id):
 @main.route('/create_professor', methods=['GET', 'POST'])
 @login_required
 def create_professor():
+    ''' Route to create a Professor '''
     form = ProfessorForm()
 
     # if form was submitted and contained no errors
@@ -84,6 +83,7 @@ def create_professor():
 @main.route('/professor/<professor_id>', methods=['GET', 'POST'])
 @login_required
 def professor_detail(professor_id):
+    ''' Route to show Professor details '''
     professor = Professor.query.get(professor_id)
     form = ProfessorForm(obj=professor)
     print(professor.classes)
@@ -103,6 +103,7 @@ def professor_detail(professor_id):
 @main.route('/create_class', methods=['GET', 'POST'])
 @login_required
 def create_class():
+    ''' Route to create a Class '''
     form = ClassForm()
 
     # if form was submitted and contained no errors
@@ -121,6 +122,7 @@ def create_class():
 @main.route('/class/<class_id>', methods=['GET', 'POST'])
 @login_required
 def class_detail(class_id):
+    ''' Route to show Class details '''
     class_object = Class.query.get(class_id)
     form = ClassForm(obj=class_object)
 
