@@ -17,11 +17,12 @@ def homepage():
     #     print ('Clear table %s' % table)
     #     db.session.execute(table.delete())
     # db.session.commit()
-
+    all_classes = Class.query.all()
     all_students = Student.query.all()
     all_professors = Professor.query.all()
+    print(all_classes)
     return render_template('home.html',
-        all_students=all_students, all_professors=all_professors)
+        all_students=all_students, all_professors=all_professors, all_classes=all_classes)
 
 @main.route('/create_student', methods=['GET', 'POST'])
 @login_required
@@ -32,7 +33,8 @@ def create_student():
     if form.validate_on_submit(): 
         new_student = Student(
             first_name=form.first_name.data,
-            last_name=form.last_name.data
+            last_name=form.last_name.data,
+            classes=form.classes.data
         )
         db.session.add(new_student)
         db.session.commit()
@@ -46,12 +48,13 @@ def create_student():
 def student_detail(student_id):
     student = Student.query.get(student_id)
     form = StudentForm(obj=student)
-    print(student.first_name)
+    print(student.classes)
 
     # if form was submitted and contained no errors
     if form.validate_on_submit(): 
         student.first_name = form.first_name.data
         student.last_name = form.last_name.data
+        student.classes = form.classes.data
 
         db.session.commit()
 
